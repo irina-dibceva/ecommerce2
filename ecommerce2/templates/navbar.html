@@ -11,21 +11,36 @@
           <li class="nav-item active">
             <a class="nav-link" href="/">Home <span class="sr-only"></span></a>
           </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/product/">Product</a>
+        </li>
           <li class="nav-item">
             <a class="nav-link" href="/product/featured/">Featured</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="login/">Login</a>
+              <a class="nav-link" href="/login/">Login</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/contact" tabindex="-1" aria-disabled="true">Contact</a>
           </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/cart">
+                {{ request.session.cart_items }}
+                <i aria-hidden="true" class="fab fa-opencart"></i>
+            </a>
+        </li>
         </ul>
       </div>
        <ul class="menu menu-right">
-      <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+           <form action="/search/" class="form-inline my-2 my-lg-0" method="GET">
+               <div class="input-group">
+
+                   <input aria-label="Search" class="form-control mr-sm-2" name="q" placeholder="Search"
+                          type="search" value="{{request.GET.q}}">
+                   <span class="input-group-btn">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </span>
+               </div>
       </form>
        </ul>
 

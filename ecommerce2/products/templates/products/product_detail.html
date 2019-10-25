@@ -3,7 +3,7 @@
 {% block content %}
 <div class="container">
       <div class="row">
-           <div class="col-12">
+          <div class="col-12 col-md-6">
                 <p>{{object.title}} </p>
                 <br/><hr/>
                 <p>{{object.description}}</p>
@@ -11,10 +11,13 @@
                 <p>{{object.price}}</p>
                 <br/><hr/><hr/>
                 {% if object.image %}
-                <p>{{object.image.url}}</p>
-                <img src='{{object.image.url}}' class= "img-fluid" align="left" />
+              <img align="right" class="img-fluid" src='{{object.image.url}}'/>
                 {% endif %}
-           </div>
+          </div>
+          <div class="col-12 col-md-6">
+              {% include 'carts/update_cart.html' with product=object cart=cart%}
+
+          </div>
       </div>
 </div>
 {% endblock %}

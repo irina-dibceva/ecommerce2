@@ -2,6 +2,7 @@ import os
 import random
 
 from django.db import models
+from django.db.models import Q
 from django.db.models.signals import pre_save
 
 from .utils import unique_slug_generator
@@ -30,6 +31,11 @@ class ProductQuerySet(models.query.QuerySet):
     def featured(self):
         return self.filter(featured=True, active=True)
 
+    def search(self, query):
+        lookups = (Q(title__icontains=query) | Q(description__icontains=query) |
+                   Q(price__icontains=query) | Q(tag__title__iexact=query))
+        return self.filter(lookups).distinct()
+
 
 class ProductManager(models.Manager):
     def get_queryset(self):
@@ -43,9 +49,9 @@ class ProductManager(models.Manager):
 
     def get_by_id(self, pk):
         return self.get_queryset().filter(id=pk).first()
-        # if qs.count == 1:
-        #     return qs
-        # return None
+
+    def search(self, query):
+        return self.get_queryset().active().search(query)
 
 
 class Category(models.Model):
@@ -62,6 +68,9 @@ class Product(models.Model):
     active = models.BooleanField(default=True)
 
     objects = ProductManager()
+
+    class Meta:
+        ordering = ["title"]
 
     def get_absolute_url(self):
         return '/product/{slug}'.format(slug=self.slug)

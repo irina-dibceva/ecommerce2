@@ -1,10 +1,50 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <h1>Cart</h1>
+        {% if cart.products.exists%}
+        <table class="table table-bordered table-dark">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Product</th>
+                <th scope="col">Product Price</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for product in cart.products.all %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td><a href="{{ product.get_absolute_url }}">{{product.title}}</a>
+                    <form action="/cart/update/" class="form" method="POST">{% csrf_token %}
+                        <input name="product" type="hidden" value="{{product.id}}"/>
+                        <h4>In cart</h4>
+                        <button class="btn btn-link" type="submit">Remove?</button>
+                    </form>
+                </td>
+                <td>{{product.price}}</td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <th scope="row"></th>
+                <td></td>
+                <td></td>
+                <td><b>Subtotal</b>{{cart.subtotal}}</td>
+            </tr>
+            <tr>
+                <th scope="row"></th>
+                <td colspan="2"></td>
+                <td><b>Total</b>{{cart.total}}</td>
+            </tr>
+
+            </tbody>
+        </table>
+        {% else %}
+        <p class="lead">Cart is empty</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
