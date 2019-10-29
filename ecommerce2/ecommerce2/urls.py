@@ -16,9 +16,11 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.contrib.auth.views import LogoutView
 from django.urls import path, include
 
-from .views import home, about, contact, register_page, login_page
+from accounts.views import login_page, register_page, guest_register_view
+from .views import home, about, contact
 
 urlpatterns = [
     path('product/', include('products.urls')),
@@ -28,7 +30,9 @@ urlpatterns = [
     path('about', about, ),
     path('contact/', contact, ),
     path('login/', login_page, ),
+    path('logout/', LogoutView.as_view(), ),
     path('register/', register_page, ),
+    path('register/guest/', guest_register_view, ),
     path('admin/', admin.site.urls),
 ]
 

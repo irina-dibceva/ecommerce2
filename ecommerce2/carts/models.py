@@ -1,21 +1,24 @@
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.db.models.signals import pre_save, m2m_changed
 
 from products.models import Product
 
+User = get_user_model()
+
 
 class CartManager(models.Manager):
     def new(self, user=None):
-        user_obj = None
-        if user is not None:
-            if user.is_authenticated:
-                user_obj = user
+        # user_obj = None
+        # if user is not None:
+        #     if user.is_authenticated:
+        #         user_obj = user
+        user = user if user and user.is_authenticated else None
         is_created = False
         cart = self.model.objects.filter(user=user).order_by('-timestamp').first()
         if not cart:
             is_created = True
-            cart = self.model.objects.create(user=user_obj)
+            cart = self.model.objects.create(user=user)
         return cart, is_created
         # return self.model.objects.get_or_create(user=user_obj)
 

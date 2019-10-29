@@ -1,28 +1,16 @@
 from django.shortcuts import render, redirect
 
+from accounts.forms import LoginForm, GuestForm
+from accounts.models import GuestEmail
+from billing.models import BillingProfile
 from carts.models import Cart
+from orders.models import Order
 from products.models import Product
 
 
 def home(request):
-    # del request.session['cart_id']
-    # cart_id = request.session.get('cart_id', None)
-    # if cart_id is None:
-    #     cart_obj = Cart.objects.create(user=None)
-    #     request.session['cart_id'] = cart_obj.id
-    # else:
-    #     print('Cart id exists')
-    #     print(cart_id)
-    #     cart_obj = Cart.objects.get(id=cart_id)
-    # return render(request, 'carts/home.html', {})
+
     cart_obj, is_created = Cart.objects.new(request.user)
-    # print(cart_obj.id)
-    # products = cart_obj.products.all()
-    # total = 0
-    # for x in products:
-    #     total += x.price
-    # cart_obj.total = total
-    # cart_obj.save()
     return render(request, 'carts/home.html', {'cart': cart_obj})
 
 
@@ -44,3 +32,36 @@ def cart_update(request):
         request.session['cart_items'] = cart_obj.products.count()
 
     return redirect('/cart/')
+
+
+def checkout_home(request):
+    cart_obj, cart_created = Cart.objects.new(request.user)
+    order_obj = None
+    print(cart_created)
+    print(cart_obj.products.count())
+    if cart_obj.products.count() == 0:
+        return redirect('/cart/')
+    else:
+        order_obj, new_order_obj = Order.objects.get_or_create(cart=cart_obj)
+    user = request.user
+    billing_profile = None
+    login_form = LoginForm()
+    guest_form = GuestForm()
+    guest_email_id = request.session.get('guest_email_id')
+    if user.is_authenticated:
+        billing_profile, billing_profile_created = BillingProfile.objects.get_or_create(
+            user=user, email=user.email)
+    elif guest_email_id is not None:
+        guest_email_obj = GuestEmail.objects.get(id=guest_email_id)
+        billing_profile, billing_guest_profile_created = BillingProfile.objects.get_or_create(
+            email=guest_email_obj.email)
+    else:
+        pass
+
+    context = {
+        "object": order_obj,
+        "billing_profile": billing_profile,
+        "login_form": login_form,
+        "guest_form": guest_form,
+    }
+    return render(request, "carts/checkout.html", context)

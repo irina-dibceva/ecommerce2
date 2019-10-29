@@ -17,16 +17,23 @@
           <li class="nav-item">
             <a class="nav-link" href="/product/featured/">Featured</a>
           </li>
+        {% if request.user.is_authenticated %}
           <li class="nav-item">
               <a class="nav-link" href="/login/">Login</a>
           </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/logout/">Logout</a>
+        </li>
           <li class="nav-item">
             <a class="nav-link" href="/contact" tabindex="-1" aria-disabled="true">Contact</a>
           </li>
+        {% endif %}
         <li class="nav-item">
             <a class="nav-link" href="/cart">
-                {{ request.session.cart_items }}
-                <i aria-hidden="true" class="fab fa-opencart"></i>
+                {{ cart_count }}
+                <!--                <i aria-hidden="true" class="fab fa-opencart"></i>-->
+                <!--                <i class="fas fa-cart-plus"></i>-->
+                <i class="fa fa-shopping-cart fa-navbar-cart"></i>
             </a>
         </li>
         </ul>
