@@ -20,19 +20,22 @@ from django.contrib.auth.views import LogoutView
 from django.urls import path, include
 
 from accounts.views import login_page, register_page, guest_register_view
+from addresses.views import checkout_address_create_view, checkout_address_reuse_view
 from .views import home, about, contact
 
 urlpatterns = [
     path('product/', include('products.urls')),
     path('search/', include('search.urls')),
     path('cart/', include('carts.urls')),
-    path('', home, ),
-    path('about', about, ),
-    path('contact/', contact, ),
-    path('login/', login_page, ),
-    path('logout/', LogoutView.as_view(), ),
-    path('register/', register_page, ),
-    path('register/guest/', guest_register_view, ),
+    path('', home, name='home'),
+    path('about', about, name='about'),
+    path('contact/', contact, name='contact'),
+    path('checkout/address/create', checkout_address_create_view, name='checkout_address_create'),
+    path('checkout/address/reuse', checkout_address_reuse_view, name='checkout_address_reuse'),
+    path('login/', login_page, name='login'),
+    path('logout/', LogoutView.as_view(), name='logout'),
+    path('register/', register_page, name='register'),
+    path('register/guest/', guest_register_view, name='register_guest'),
     path('admin/', admin.site.urls),
 ]
 
