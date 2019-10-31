@@ -21,6 +21,7 @@ from django.urls import path, include
 
 from accounts.views import login_page, register_page, guest_register_view
 from addresses.views import checkout_address_create_view, checkout_address_reuse_view
+from carts.views import cart_detail_api_view
 from .views import home, about, contact
 
 urlpatterns = [
@@ -29,6 +30,7 @@ urlpatterns = [
     path('cart/', include('carts.urls')),
     path('', home, name='home'),
     path('about', about, name='about'),
+    path('api/cart/', cart_detail_api_view, name='api-cart'),
     path('contact/', contact, name='contact'),
     path('checkout/address/create', checkout_address_create_view, name='checkout_address_create'),
     path('checkout/address/reuse', checkout_address_reuse_view, name='checkout_address_reuse'),

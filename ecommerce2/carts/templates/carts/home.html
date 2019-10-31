@@ -6,7 +6,7 @@
     <div class="row">
         <h1>Cart</h1>
         {% if cart.products.exists%}
-        <table class="table table-bordered table-dark">
+        <table class="table cart-table">
             <thead>
             <tr>
                 <th scope="col">#</th>
@@ -14,16 +14,13 @@
                 <th scope="col">Product Price</th>
             </tr>
             </thead>
-            <tbody>
+            <tbody class="cart-body">
             {% for product in cart.products.all %}
-            <tr>
+            <tr class='cart-product'>
                 <th scope="row">{{ forloop.counter }}</th>
                 <td><a href="{{ product.get_absolute_url }}">{{product.title}}</a>
-                    <form action="/cart/update/" class="form" method="POST">{% csrf_token %}
-                        <input name="product" type="hidden" value="{{product.id}}"/>
-                        <h4>In cart</h4>
-                        <button class="btn btn-link" type="submit">Remove?</button>
-                    </form>
+                    <!--                    {% include 'carts/update_cart.html' with product=product cart=cart in_cart=True %}-->
+                    {% include 'carts/remove-product.html' with product_id=product.id %}
                 </td>
                 <td>{{product.price}}</td>
             </tr>
@@ -32,12 +29,12 @@
                 <th scope="row"></th>
                 <td></td>
                 <td></td>
-                <td><b>Subtotal</b>{{cart.subtotal}}</td>
+                <td><b>Subtotal</b> $<span class='cart-subtotal'>{{ cart.subtotal }}</span></td>
             </tr>
             <tr>
                 <th scope="row"></th>
                 <td colspan="2"></td>
-                <td><b>Total</b>{{cart.total}}</td>
+                <td><b>Total</b> $<span class='cart-total'>{{ cart.total }}</span></td>
             </tr>
             <tr>
                 <th scope="row"></th>
@@ -47,6 +44,10 @@
 
             </tbody>
         </table>
+        <div class='cart-item-remove-form' style='display:none'>
+
+            {% include 'carts/remove-product.html' %}
+        </div>
         {% else %}
         <p class="lead">Cart is empty</p>
         {% endif %}

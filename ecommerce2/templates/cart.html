@@ -3,9 +3,20 @@
 <div class="container">
     <div class="row">
         <div class="col-12">
-            <div class="card border-primary mb-3" style="max-width: 18rem;">
+            <div class="card border-primary mb-3" style="width: 20rem;">
                 {% if obj.image %}
                 <a href="{{ obj.get_absolute_url }}">
+                    <form action='{% url "cart:update" %}' class='form-product-ajax' class="form"
+                          data-endpoint='{% url "cart:update" %}' method='POST'> {% csrf_token %}
+                        <input name='product_id' type='hidden' value='{{ product.id }}'/>
+                        <span class='submit-span'>
+    {% if product in cart.products.all %}
+        In cart <button class='btn btn-link' type='submit'>Remove?</button>
+    {% else %}
+        <button class='btn btn-success' type='submit'>Add to cart</button>
+    {% endif %}
+    </span>
+                    </form>
                     <img alt="{{obj.title}} logo" class="card-img-top" src="{{obj.image.url}}">
                 </a>
                 {% endif %}

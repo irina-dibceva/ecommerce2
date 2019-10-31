@@ -8,52 +8,64 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
+        <li class="nav-item active">
             <a class="nav-link" href="/">Home <span class="sr-only"></span></a>
-          </li>
+        </li>
         <li class="nav-item">
             <a class="nav-link" href="/product/">Product</a>
         </li>
-          <li class="nav-item">
+        <li class="nav-item">
             <a class="nav-link" href="/product/featured/">Featured</a>
-          </li>
+        </li>
         {% if request.user.is_authenticated %}
-          <li class="nav-item">
-              <a class="nav-link" href="/login/">Login</a>
-          </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/login/">Login</a>
+        </li>
         <li class="nav-item">
             <a class="nav-link" href="/logout/">Logout</a>
         </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/contact" tabindex="-1" aria-disabled="true">Contact</a>
-          </li>
+        <li class="nav-item">
+            <a aria-disabled="true" class="nav-link" href="/contact" tabindex="-1">Contact</a>
+        </li>
         {% endif %}
         <li class="nav-item">
-            <a class="nav-link" href="{{ cart_url }}">
-                <span class='navbar-cart-count'>
-                {{ request.session.cart_items }}
-                </span>
+            <a class="nav-link" href="{% url 'cart:cart-home' %}">
+            <span class='navbar-cart-count'>
+            {{ cart_count }}
+            </span>
                 <i aria-hidden="true" class="fa fa-shopping-cart"></i>
             </a>
         </li>
+    </ul>
+      <form action="/search/" class="form-inline my-2 my-lg-0 search-form" method="GET">
+          <div class="input-group">
 
-        <!--  <li class="nav-item dropdown">
-
-         </li>
-         </ul>
-       </div>
-
-        <form action="/search/" class="form-inline my-2 my-lg-0" method="GET">
-                <div class="input-group">
-
-                    <input aria-label="Search" class="form-control mr-sm-2" name="q" placeholder="Search"
-                           type="search" value="{{request.GET.q}}">
-                    <span class="input-group-btn">
-                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                     </span>
-                </div>
+              <input aria-label="Search" class="form-control mr-sm-2" name="q" placeholder="Search"
+                     type="search" value="{{request.GET.q}}">
+              <span class="input-group-btn">
+                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+             </span>
+          </div>
        </form>
+  </div>
 
 
-    </nav>
+   </nav>
  {% endblock %}
+
+<!--
+<li class="nav-item dropdown">
+</li>
+
+</div>
+
+<form action="/search/" class="form-inline my-2 my-lg-0" method="GET">
+        <div class="input-group">
+
+            <input aria-label="Search" class="form-control mr-sm-2" name="q" placeholder="Search"
+                   type="search" value="{{request.GET.q}}">
+            <span class="input-group-btn">
+                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+             </span>
+</form>
+-->

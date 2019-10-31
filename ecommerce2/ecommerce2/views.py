@@ -1,4 +1,4 @@
-from django.contrib import messages
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render
 
 from .forms import *
@@ -32,10 +32,17 @@ def contact(request):
     }
     if contact_form.is_valid():
         print(contact_form.cleaned_data)
-        messages.success(request, 'Ok, action is right')
-        return render(request, 'contact.html', context)
-    else:
-        messages.error(request, 'Please, try again')
+        if request.is_ajax():
+            return JsonResponse({"message": "Thank you for your submission"})
+
+    if contact_form.errors:
+        errors = contact_form.errors.as_json()
+        if request.is_ajax():
+            return HttpResponse(errors, status=400, content_type='application/json')
+    #     messages.success(request, 'Ok, action is right')
+    #     return render(request, 'contact.html', context)
+    # else:
+    #     messages.error(request, 'Please, try again')
 
     return render(request, 'home.html', context)
 
