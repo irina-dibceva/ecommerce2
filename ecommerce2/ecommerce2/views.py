@@ -9,7 +9,7 @@ def home(request):
         'title': 'Hello Word!',
         'content': 'Welcome to the homepage.',
         'premium_content': '',
-        'users': User.objects.filter(is_active=True)
+        'users': User.objects.filter(active=True)
     }
     if request.user.is_authenticated:
         context['premium_content'] = 'Hi, my new friends!))'

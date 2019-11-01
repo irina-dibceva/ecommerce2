@@ -1,6 +1,6 @@
 $(document).ready(function(){
     // Contact Form Handler
-
+    console.log('!!!!!!!!!!!')
     var contactForm = $(".contact-form")
     var contactFormMethod = contactForm.attr("method")
     var contactFormEndpoint = contactForm.attr("action") // /abc/
@@ -34,11 +34,12 @@ $(document).ready(function(){
         data: contactFormData,
         success: function(data){
           contactForm[0].reset()
-          $.alert({
-            title: "Success!",
-            content: data.message,
-            theme: "modern",
-          })
+          alert(data.message);
+//          $.alert({
+//            title: "Success!",
+//            content: data.message,
+//            theme: "modern",
+//          })
           setTimeout(function(){
             displaySubmitting(contactFormSubmitBtn, contactFormSubmitBtnTxt, false)
           }, 500)
@@ -104,6 +105,7 @@ $(document).ready(function(){
 
   // Cart + Add Products
   var productForm = $(".form-product-ajax") // #form-product-ajax
+  console.log(productForm)
 
   productForm.submit(function(event){
       event.preventDefault();
@@ -113,6 +115,7 @@ $(document).ready(function(){
       var actionEndpoint = thisForm.attr("data-endpoint")
       var httpMethod = thisForm.attr("method");
       var formData = thisForm.serialize();
+      console.log(formData)
 
       $.ajax({
         url: actionEndpoint,

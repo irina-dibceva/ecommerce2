@@ -1,6 +1,6 @@
 $(document).ready(function(){
     // Contact Form Handler
-
+    console.log('!!!!!!!!')
     var contactForm = $(".contact-form")
     var contactFormMethod = contactForm.attr("method")
     var contactFormEndpoint = contactForm.attr("action") // /abc/
@@ -34,11 +34,15 @@ $(document).ready(function(){
         data: contactFormData,
         success: function(data){
           contactForm[0].reset()
-          $.alert({
-            title: "Success!",
-            content: data.message,
-            theme: "modern",
-          })
+//            var form_block = $('.contact-form-block')
+//            form_block.html(data.message)
+          alert(data.message, 'Success!')
+
+//          $.alert({
+//            title: "Success!",
+//            content: data.message,
+//            theme: "modern",
+//          })
           setTimeout(function(){
             displaySubmitting(contactFormSubmitBtn, contactFormSubmitBtnTxt, false)
           }, 500)
@@ -104,6 +108,7 @@ $(document).ready(function(){
 
   // Cart + Add Products
   var productForm = $(".form-product-ajax") // #form-product-ajax
+  console.log(productForm)
 
   productForm.submit(function(event){
       event.preventDefault();
@@ -111,14 +116,19 @@ $(document).ready(function(){
       var thisForm = $(this)
       // var actionEndpoint = thisForm.attr("action"); // API Endpoint
       var actionEndpoint = thisForm.attr("data-endpoint")
+      console.log(actionEndpoint)
       var httpMethod = thisForm.attr("method");
+      console.log(httpMethod)
       var formData = thisForm.serialize();
+      console.log(formData)
 
       $.ajax({
         url: actionEndpoint,
         method: httpMethod,
         data: formData,
         success: function(data){
+            console.log('success')
+            console.log(data)
           var submitSpan = thisForm.find(".submit-span")
           if (data.added){
             submitSpan.html("In cart <button type='submit' class='btn btn-link'>Remove?</button>")
@@ -134,6 +144,8 @@ $(document).ready(function(){
           }
         },
         error: function(errorData){
+            console.log('error')
+            console.log(errorData)
           $.alert({
             title: "Oops!",
             content: "An error occurred",

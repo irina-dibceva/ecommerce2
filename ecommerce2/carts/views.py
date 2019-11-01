@@ -29,8 +29,7 @@ def home(request):
 
 
 def cart_update(request):
-
-    product_id = request.POST.get('product')
+    product_id = request.POST.get('product_id')
 
     if product_id is not None:
         try:
@@ -91,8 +90,8 @@ def checkout_home(request):
         if is_done:
             order_obj.mark_paid()
             request.session['cart_items'] = 0
-            del request.session['cart_id']
-
+            cart_id = request.session.pop('cart_id', None)
+            cart_obj.delete()
             return redirect("/cart/checkout/success/")
 
     context = {

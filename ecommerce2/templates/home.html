@@ -13,7 +13,7 @@
           <div class="col">
               <img src="{% static 'img/ecommerce.jpg' %}"
                     class= "img-fluid" align="center" />
-              <div class='col-md-6 col-12 mx-auto'>
+              <div class='col-md-6 col-12 mx-auto contact-form-block'>
                   <p>{{ content }}</p>
                   <form action='{% url "contact" %}' class='contact-form' method='POST'>
                       {% csrf_token %}
