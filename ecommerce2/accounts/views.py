@@ -3,6 +3,7 @@ from django.shortcuts import redirect
 from django.utils.http import is_safe_url
 from django.views.generic import FormView, CreateView
 
+from accounts.signals import user_logged_in
 from .forms import LoginForm, RegisterForm, GuestForm
 from .models import GuestEmail
 
@@ -29,7 +30,7 @@ def guest_register_view(request):
 class LoginView(FormView):
     form_class = LoginForm
     success_url = '/'
-    template_name = 'accounts/login.html'
+    template_name = 'login.html'
 
     def form_valid(self, form):
         request = self.request
@@ -42,6 +43,7 @@ class LoginView(FormView):
         user = authenticate(request, username=email, password=password)
         if user is not None:
             login(request, user)
+            user_logged_in.send(user.__class__, instance=user, request=request)
             try:
                 del request.session['guest_email_id']
             except:
@@ -55,7 +57,7 @@ class LoginView(FormView):
 
 class RegisterView(CreateView):
     form_class = RegisterForm
-    template_name = 'accounts/register.html'
+    template_name = 'registration.html'
     success_url = '/login/'
 
 # def login_page(request):

@@ -1,8 +1,3 @@
-from products.models import Product
-from products.utils import unique_slug_generator
-from .models import *
-
-
 class Tag(models.Model):
     title = models.CharField(max_length=120)
     slug = models.SlugField(blank=True, unique=True)
