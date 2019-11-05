@@ -1,6 +1,5 @@
 $(document).ready(function(){
     // Contact Form Handler
-    console.log('!!!!!!!!!!!')
     var contactForm = $(".contact-form")
     var contactFormMethod = contactForm.attr("method")
     var contactFormEndpoint = contactForm.attr("action") // /abc/

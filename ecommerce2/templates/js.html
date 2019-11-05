@@ -7,24 +7,26 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
 
+<!-- Stripe JS -->
+<script src="https://js.stripe.com/v3/"></script>
+
 <!-- jquery-confirm JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.js"></script>
 
-<!-- Django Secure AJAX JS -->
+<!--js Render-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jsrender/1.0.5/jsrender.min.js"></script>
+{% include 'js_templates.html' %}
+
+<!--Django Secure AJAX JS-->
 <script src='{% static "js/csrf.ajax.js" %}'></script>
 
 <!-- eCommerce Custom JS -->
 <script src='{% static "js/ecommerce.js" %}'></script>
 
-{% load staticfiles %}
-<!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script src="https://js.braintreegateway.com/v2/braintree.js"></script>
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="{% static 'js/ie10-viewport-bug-workaround.js' %}"></script>
-     <script src="{% static 'js/custom.js' %}"></script>
+<!-- eCommerce Main JS -->
+<script src='{% static "js/ecommerce.main.js" %}'></script>
+
+
+
 
 

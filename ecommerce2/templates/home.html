@@ -3,6 +3,10 @@
 {% load static %}
 {% load i18n %}
 
+{% block base_head %}
+<link href='{% static "css/main.css" %}' rel='stylesheet'>
+{% endblock %}
+
 {% block content %}
 <div class="text-center">
       <h1>{{title}}</h1>

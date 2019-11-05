@@ -1,6 +1,5 @@
 $(document).ready(function(){
     // Contact Form Handler
-    console.log('!!!!!!!!')
     var contactForm = $(".contact-form")
     var contactFormMethod = contactForm.attr("method")
     var contactFormEndpoint = contactForm.attr("action") // /abc/
@@ -108,7 +107,6 @@ $(document).ready(function(){
 
   // Cart + Add Products
   var productForm = $(".form-product-ajax") // #form-product-ajax
-  console.log(productForm)
 
   productForm.submit(function(event){
       event.preventDefault();
