@@ -30,6 +30,8 @@ urlpatterns = [
     path('product/', include('products.urls')),
     path('search/', include('search.urls')),
     path('cart/', include('carts.urls')),
+    path('account/', include('accounts.urls')),
+    path('accounts/', include('accounts.passwords.urls')),
     path('', home, name='home'),
     path('about', about, name='about'),
     path('api/cart/', cart_detail_api_view, name='api-cart'),

@@ -18,15 +18,25 @@
             <a class="nav-link" href="/product/featured/">Featured</a>
         </li>
         {% if request.user.is_authenticated %}
-        <li class="nav-item">
-            <a class="nav-link" href="/login/">Login</a>
+        <li class="nav-item dropdown">
+            <a aria-expanded="false"
+               aria-haspopup="true" class="nav-link dropdown-toggle" data-toggle="dropdown"
+               href="#" id="navbarDropdown"
+               role="button">
+                Account
+            </a>
+            <div aria-labelledby="navbarDropdown" class="dropdown-menu">
+                <a class="dropdown-item {% if request.path == account_url %}active{% endif %}"
+                   href="/account/">Home</a>
+                <a class="dropdown-item" href="/login/">Login</a>
+                <a class="dropdown-item" href="#">Billing</a>
+                <a class="dropdown-item" href="#">Preferences</a>
+                <a class="dropdown-item" href="#">History</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/logout/">Logout</a>
+            </div>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/logout/">Logout</a>
-        </li>
-        <li class="nav-item">
-            <a aria-disabled="true" class="nav-link" href="/contact" tabindex="-1">Contact</a>
-        </li>
+
         {% endif %}
         <li class="nav-item">
             <a class="nav-link" href="{% url 'cart:cart-home' %}">

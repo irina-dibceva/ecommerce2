@@ -1,11 +1,19 @@
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
 from django.utils.http import is_safe_url
-from django.views.generic import FormView, CreateView
+from django.views.generic import FormView, CreateView, DetailView
 
 from accounts.signals import user_logged_in
 from .forms import LoginForm, RegisterForm, GuestForm
 from .models import GuestEmail
+
+
+class AccountHomeView(LoginRequiredMixin, DetailView):
+    template_name = 'accounts/home.html'
+
+    def get_object(self):
+        return self.request.user
 
 
 def guest_register_view(request):
