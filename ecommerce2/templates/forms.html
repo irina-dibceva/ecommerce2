@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<div class='col-12 col-md-6 mx-auto'>
+    {% if title %}<h1 class='my-3'>{{ title }}</h1>{% endif %}
+    <form action='{% if action_url %}{{ action_url }}{% endif %}' method='POST'> {% csrf_token %}
+        {% if next_url %}
+        <input name='next' type='hidden' value='{{ next_url }}'/>
+        {% endif %}
+        {{ form.as_p }}
+        <button class='btn btn-default' type='submit'>Save</button>
+    </form>
+</div>
+{% endblock %}

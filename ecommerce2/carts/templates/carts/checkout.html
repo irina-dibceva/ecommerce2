@@ -19,8 +19,8 @@
     </div>
 
 </div>
-{% else %}
-{% if not object.shipping_address %}
+
+{% elif not object.shipping_address %}
 
 <div class='row'>
     <div class='col-12'>
@@ -68,17 +68,16 @@
     action_url=checkout_address_create address_type='billing' %}
 </div>
 
-{% else %}
-
-{% if not has_card %}
+{% elif not has_card %}
 <!-- enter credit card here -->
 <div class='stripe-payment-form' data-btn-title='Add Payment Method' data-next-url='{{ request.build_absolute_uri }}'
      data-token='{{ publish_key }}'></div>
 
 {% else %}
 <h1>Finalize Checkout</h1>
-<p>Cart Items: {% for product in object.cart.products.all %}{{ product }}{% if not forloop.last %}, {% endif %}{% endfor
-    %}</p>
+<p>
+    Cart Items:
+    {% for product in object.cart.products.all %}{{ product }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
 <p>Shipping Address: {{ object.shipping_address.get_address }}</p>
 <p>Billing Address: {{ object.shipping_address.get_address }}</p>
 <p>Payment Method: {{ billing_profile.default_card }} (<a
@@ -90,7 +89,6 @@
 <form action="" class='form' method='POST'>{% csrf_token %}
     <button class='btn btn-success' type='submit'>Checkout</button>
 </form>
-{% endif %}
-{% endif %}
+
 {% endif %}
 {% endblock %}

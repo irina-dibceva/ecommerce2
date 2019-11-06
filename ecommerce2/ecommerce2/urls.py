@@ -23,6 +23,7 @@ from accounts.views import guest_register_view, LoginView, RegisterView
 from addresses.views import checkout_address_create_view, checkout_address_reuse_view
 from billing.views import payment_method_view, payment_method_createview
 from carts.views import cart_detail_api_view
+from marketing.views import MarketingPreferenceUpdateView, MailchimpWebhookView
 from .views import home, about, contact
 
 urlpatterns = [
@@ -38,6 +39,8 @@ urlpatterns = [
     path('login/', LoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('register/', RegisterView.as_view(), name='register'),
+    path('settings/email/', MarketingPreferenceUpdateView.as_view(), name='marketing-pref'),
+    path('webhook/mailchimp/', MailchimpWebhookView.as_view(), name='webhook-mailchimp'),
     path('billing/payment-method/', payment_method_view, name='billing-payment-method'),
     path('billing/payment-method/create/', payment_method_createview, name='billing-payment-method-endpoint'),
     path('register/guest/', guest_register_view, name='register_guest'),

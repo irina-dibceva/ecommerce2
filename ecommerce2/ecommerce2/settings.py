@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'billing',
     'addresses',
     'analytics',
+    'marketing',
 
 ]
 
@@ -52,6 +53,12 @@ AUTH_USER_MODEL = 'accounts.User'  # changes the built-in user model to ours
 
 FORCE_SESSION_TO_ONE = False
 FORCE_INACTIVE_USER_ENDSESSION = False
+
+MAILCHIMP_API_KEY = 'b87b36cb13705f7ad6722beb987241d6-us5'
+MAILCHIMP_DATA_CENTER = 'us5'
+MAILCHIMP_EMAIL_LIST_ID = 'e5c182d684'
+
+
 
 STRIPE_SECRET_KEY = 'sk_test_ptzZQv5hfPxqPYSoskcfic6M00nysZ1CX9'
 
